@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>For Butkii 💖</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(120deg,#2b1055,#7597de,#ff9a9e);
+  overflow:hidden;
+  font-family:Poppins,sans-serif;
+}
+
+/* Glass blur */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  backdrop-filter:blur(8px);
+  z-index:-1;
+}
+
+.card{
+  background:white;
+  width:380px;
+  padding:30px;
+  border-radius:25px;
+  text-align:center;
+  box-shadow:0 0 30px rgba(255,150,200,0.6);
+  animation:pop .8s ease;
+  position:relative;
+  z-index:10;
+}
+
+@keyframes pop{
+  from{transform:scale(.5);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
+
+@keyframes pulseCard{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.04);}
+  100%{transform:scale(1);}
+}
+
+img{
+  width:200px;
+  border-radius:15px;
+  display:block;
+  margin:auto;
+}
+
+iframe{
+  width:100%;
+  height:220px;
+  border-radius:15px;
+  display:none;
+  border:none;
+  margin:10px auto;
+}
+
+h2{margin:20px 0;}
+
+button{
+  padding:12px 30px;
+  border:none;
+  border-radius:30px;
+  background:#ff5c8a;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  transition:.3s;
+  margin:5px;
+}
+
+button:hover{transform:scale(1.1);}
+
+/* falling items */
+.shower{
+  position:absolute;
+  font-size:18px;
+  animation:fall 8s linear infinite;
+  z-index:1;
+}
+
+@keyframes fall{
+  from{transform:translateY(-10vh);}
+  to{transform:translateY(110vh);}
+}
+
+/* fireflies */
+.firefly{
+  position:absolute;
+  width:6px;
+  height:6px;
+  background:#fff6a0;
+  border-radius:50%;
+  box-shadow:0 0 12px #fff6a0;
+  animation:fly 6s ease-in-out infinite alternate;
+  z-index:1;
+}
+
+@keyframes fly{
+  from{transform:translate(0,0);}
+  to{transform:translate(80px,-80px);}
+}
+
+/* animated bg */
+@keyframes dreamyBG{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<img id="gif" src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif">
+<iframe id="surpriseVideo"></iframe>
+
+<h2 id="question">Hey Butkii 💖</h2>
+
+<div id="buttons">
+<button id="nextBtn">Tap here 🌸</button>
+</div>
+
+</div>
+
+<script>
+
+const DRIVE_VIDEO="https://drive.google.com/file/d/1aVGN84vENi2--XWY_CdQh5HBdgabogf1/preview";
+
+const steps=[
+"How are you feeling today? 🤍",
+"Did something make you sad today? 🥺",
+"Do you want to share what happened? 💬",
+"You know I'm always here for you, right? 🫂",
+"Do you know you matter a lot to me? 🤍",
+"Would you like a cute surprise? 🎁"
+];
+
+const gifs=[
+"https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif",
+"https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",
+"https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif",
+"https://media.giphy.com/media/l4FGpPki5v2Bcd6Ss/giphy.gif",
+"https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif",
+"https://media.giphy.com/media/26BRuo6sLetdllPAQ/giphy.gif"
+];
+
+let index=0;
+
+const q=document.getElementById("question");
+const gif=document.getElementById("gif");
+const btn=document.getElementById("buttons");
+const video=document.getElementById("surpriseVideo");
+
+document.getElementById("nextBtn").onclick=()=>{
+ index++;
+ loadStep();
+};
+
+function loadStep(){
+
+ q.innerHTML=steps[index];
+ gif.src=gifs[index];
+ gif.style.display="block";
+ video.style.display="none";
+ video.src="";
+ btn.innerHTML="";
+
+ if(index===1){
+ btn.innerHTML=`
+ <button onclick="sadYes()">Yes 😔</button>
+ <button onclick="sadNo()">No 🙂</button>`;
+ }
+
+ else if(index===2){
+ btn.innerHTML=`
+ <textarea></textarea><br><br>
+ <button onclick="submitText()">Submit 💗</button>`;
+ }
+
+ else if(index===5){
+ btn.innerHTML=`
+ <button onclick="playSurprise()">Play Surprise 🎥</button>
+ <button onclick="next()">Next 🌸</button>`;
+ }
+
+ else if(index<steps.length){
+ btn.innerHTML=`<button onclick="next()">Next 🌸</button>`;
+ }
+
+ else{
+ q.innerHTML="You are loved more than you know 💖😊<br>And I'm always with you.";
+ gif.src="https://media.giphy.com/media/5GoVLqeAOo6PK/giphy.gif";
+ btn.innerHTML=`<button onclick="launchMagic()">Smile 😊</button>`;
+ }
+}
+
+function next(){index++;loadStep();}
+function sadYes(){index=2;loadStep();}
+function sadNo(){index=3;loadStep();}
+function submitText(){index=3;loadStep();}
+
+function playSurprise(){
+ gif.style.display="none";
+ video.style.display="block";
+ video.src=DRIVE_VIDEO;
+}
+
+/* 🌸 FINAL MAGIC */
+function launchMagic(){
+
+ document.body.style.background=
+ "linear-gradient(-45deg,#ff9a9e,#fecfef,#fbc2eb,#ffd1ff)";
+ document.body.style.backgroundSize="400% 400%";
+ document.body.style.animation="dreamyBG 10s ease infinite";
+
+ document.querySelector(".card").style.animation="pulseCard 2s infinite";
+
+ // Petals + hearts + sparkles shower
+ setInterval(()=>{
+   for(let i=0;i<4;i++){
+     const s=document.createElement("div");
+     s.className="shower";
+     s.innerHTML=["🌸","💗","✨","💕","🎀"][Math.floor(Math.random()*5)];
+     s.style.left=Math.random()*100+"vw";
+     document.body.appendChild(s);
+     setTimeout(()=>s.remove(),8000);
+   }
+ },250);
+
+ // Fireflies
+ setInterval(()=>{
+  const f=document.createElement("div");
+  f.className="firefly";
+  f.style.left=Math.random()*100+"vw";
+  f.style.top=Math.random()*100+"vh";
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),6000);
+ },500);
+}
+
+</script>
+
+</body>
+</html>
